@@ -12,8 +12,14 @@ pragma solidity ^0.8.0;
 */
 
 contract ERC721 {
-    // mapping in solidity creates a hash table of key pair values
 
+    event Transfer(
+        address indexed from, 
+        address indexed to, 
+        uint256 indexed tokenId
+    );
+
+    // mapping in solidity creates a hash table of key pair values
     // mapping from token id to the owner
     mapping(uint256 => address) private _tokenOwner;
 
@@ -40,5 +46,7 @@ contract ERC721 {
         // keeping track of each address that is missing and the 
         // number of tokens
         _OwnedTokensCount[to] += 1;
+
+        emit Transfer(address(0), to, tokenId);
     } 
 }
