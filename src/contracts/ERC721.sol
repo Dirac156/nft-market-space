@@ -48,5 +48,5 @@ contract ERC721 {
         _OwnedTokensCount[to] += 1;
 
         emit Transfer(address(0), to, tokenId);
-    } 
+    }
 }
