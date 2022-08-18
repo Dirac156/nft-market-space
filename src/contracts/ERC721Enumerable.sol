@@ -7,6 +7,15 @@ contract ERC721Enumerable is ERC721 {
 
     uint256[] private _allTokens;
 
+    // mapping from tokenId to position in _allTokens array
+    mapping(uint256 => uint256) private _allTokensIndex;
+
+    // mapping of owner to list of all owner token ids
+    mapping(address => uint256[]) private _OwnedTokens;
+
+    // mapping from token ID index of the owner tokens list
+    mapping(uint256 => uint256) private _ownedTokensIndex;
+
     /// @notice count NFTs tracked by thus contract
     /// @return uint256 A count of valid NFTs tracked by this contract,
     function totalSupply() external view returns (uint256) {
