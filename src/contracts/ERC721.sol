@@ -54,15 +54,22 @@ contract ERC721 {
     /// @dev NFTs assigned to the zero address are considered invalid,
     /// and function throws for queries abount the zero address.
     /// @param _owner Address for whom to query the balance
-    /// @return The number of NFTs owned by _owner possib;u zero. 
+    /// @return uint256 The number of NFTs owned by _owner possib;u zero. 
 
     function balanceOf(address _owner) public view returns(uint256) {
-        require(_owner != address(0), 'ERC721: minting to the zero address');
+        require(_owner != address(0), 'ERC721: balanceOf to the zero address');
         return _OwnedTokensCount[_owner];
     }
 
+    /// @notice Find the owner of an NFT
+    /// @dev NFTs assigned to zero address are considered invalid,
+    /// and query about then do throw.
+    /// @param _tokenId 
+    /// @return address owner of the token
     function ownerOf(uint256 _tokenId) external view returns(address) {
-        
+        address owner = _tokenOwner[_tokenId];
+        require(owner != address(0), 'ERC721: ownerOf to the zero address');
+        return owner;
     }
 
 }
