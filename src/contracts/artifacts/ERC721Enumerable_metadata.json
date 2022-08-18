@@ -1,0 +1,214 @@
+{
+	"compiler": {
+		"version": "0.8.6+commit.11564f7e"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "from",
+						"type": "address"
+					},
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "to",
+						"type": "address"
+					},
+					{
+						"indexed": true,
+						"internalType": "uint256",
+						"name": "tokenId",
+						"type": "uint256"
+					}
+				],
+				"name": "Transfer",
+				"type": "event"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "_owner",
+						"type": "address"
+					}
+				],
+				"name": "balanceOf",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "_tokenId",
+						"type": "uint256"
+					}
+				],
+				"name": "ownerOf",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "_index",
+						"type": "uint256"
+					}
+				],
+				"name": "tokenByIndex",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "_index",
+						"type": "uint256"
+					}
+				],
+				"name": "tokenOfOwnerByIndex",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "totalSupply",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {
+				"balanceOf(address)": {
+					"details": "NFTs assigned to the zero address are considered invalid, and function throws for queries abount the zero address.",
+					"params": {
+						"_owner": "Address for whom to query the balance"
+					},
+					"returns": {
+						"_0": "uint256 The number of NFTs owned by _owner possib;u zero. "
+					}
+				},
+				"ownerOf(uint256)": {
+					"details": "NFTs assigned to zero address are considered invalid, and query about then do throw.",
+					"params": {
+						"_tokenId": "the id ok the nft we want to check."
+					},
+					"returns": {
+						"_0": "address owner of the token"
+					}
+				},
+				"tokenByIndex(uint256)": {
+					"details": "throws if `_index` >= `totalSupply()`.",
+					"params": {
+						"_index": "A counter less than `totoalSupply`"
+					},
+					"returns": {
+						"_0": "uint256 The token identifier for the `_index`th NFT, (sort order not specified)"
+					}
+				},
+				"totalSupply()": {
+					"returns": {
+						"_0": "uint256 A count of valid NFTs tracked by this contract,"
+					}
+				}
+			},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {
+				"balanceOf(address)": {
+					"notice": "Count all NFTs assigned to an owner"
+				},
+				"ownerOf(uint256)": {
+					"notice": "Find the owner of an NFT"
+				},
+				"tokenByIndex(uint256)": {
+					"notice": "Enumerate valid NFTs"
+				},
+				"totalSupply()": {
+					"notice": "count NFTs tracked by thus contract"
+				}
+			},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"src/contracts/ERC721Enumerable.sol": "ERC721Enumerable"
+		},
+		"evmVersion": "berlin",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"src/contracts/ERC721.sol": {
+			"keccak256": "0x05eb6402f0d200f933b418b65f52858547de82203f7364ffae2cc00640798702",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://1f242b1188826d716fccdb10ba7d41ceb3c054be2fae476d94122c482a0467b4",
+				"dweb:/ipfs/QmVX9qbxWYMKX9wK2yKcfxwyG91hys6riKPadKHih2CyC6"
+			]
+		},
+		"src/contracts/ERC721Enumerable.sol": {
+			"keccak256": "0x59bab6d2cba415163cbbe5827012c7ac98e75ee3938551b020c4540d8083d1cd",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://10e623590899fc3e604696244572990b24a8c98aaa1a92931cd7c430f3e83cc1",
+				"dweb:/ipfs/QmWSKvTufFsEXXVasiNMQ7vJrYXvVGdodLXQeTEqajhC1R"
+			]
+		}
+	},
+	"version": 1
+}

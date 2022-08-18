@@ -10,10 +10,10 @@ contract ERC721Enumerable is ERC721 {
     // mapping from tokenId to position in _allTokens array
     mapping(uint256 => uint256) private _allTokensIndex;
 
-    // mapping of owner to list of all owner token ids
-    mapping(address => uint256[]) private _OwnedTokens;
+    // mapping of owner to list of all owned token ids
+    mapping(address => uint256[]) private _ownedTokens;
 
-    // mapping from token ID index of the owner tokens list
+    // mapping from token ID index to index of the owner tokens list
     mapping(uint256 => uint256) private _ownedTokensIndex;
 
     /// @notice count NFTs tracked by thus contract
@@ -27,12 +27,17 @@ contract ERC721Enumerable is ERC721 {
     /// @param _index A counter less than `totoalSupply`
     /// @return uint256 The token identifier for the `_index`th NFT,
     /// (sort order not specified)
-    function tokenByIndex(uint256 _index) external view returns(uint256) {
+    function tokenByIndex(uint256 _index) external view returns(uint256) {}
 
-    }
+    function tokenOfOwnerByIndex(uint256 _index) external view returns(uint256){}
 
     // overide _mint from ERC721
     function _mint(address to, uint256 tokenId) internal override(ERC721) {
         super._mint(to, tokenId);
+        _addTokensToAllTokensToTotalSupply(tokenId);
+    }
+
+    function _addTokensToAllTokensToTotalSupply(uint256 tokenId) private {
+        _allTokens.push(tokenId);
     }
 }
