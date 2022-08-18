@@ -34,10 +34,23 @@ contract ERC721Enumerable is ERC721 {
     // overide _mint from ERC721
     function _mint(address to, uint256 tokenId) internal override(ERC721) {
         super._mint(to, tokenId);
-        _addTokensToAllTokensToTotalSupply(tokenId);
+        _addTokenToAllTokensToEnumerable(tokenId);
+        _addTokenToOwnerEnumeration(to, tokenId);
     }
 
-    function _addTokensToAllTokensToTotalSupply(uint256 tokenId) private {
+    /// @notice add tokens to the _allTokens array 
+    /// and set the position of the token indexes
+    function _addTokenToAllTokensToEnumerable(uint256 tokenId) private {
+        // keep track of the tokenId in the list of all tokens
+        _allTokensIndex[tokenId] = _allTokens.length;
         _allTokens.push(tokenId);
+    }
+
+    /// @notice add the address and token id to the _ownedTokens
+    /// ownedTokensIndex tokenId set to address of ownedTokens position.
+    /// execute the function with minting
+    function _addTokenToOwnerEnumeration(address owner, uint256 tokenId) private {
+        _ownedTokensIndex[tokenId] = _ownedTokens[owner].length;
+        _ownedTokens[owner].push(tokenId);
     }
 }
