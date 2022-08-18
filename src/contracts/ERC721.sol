@@ -36,7 +36,7 @@ contract ERC721 {
 
     // require that the mint address isn't 0
     // require that the token has not already been minted
-    function _mint(address to, uint256 tokenId) internal {
+    function _mint(address to, uint256 tokenId) virtual internal {
         // require that the mint address is not 0
         require(to != address(0), 'ERC721: minting to the zero address');
         // requires that the token does not already exist
@@ -64,8 +64,9 @@ contract ERC721 {
     /// @notice Find the owner of an NFT
     /// @dev NFTs assigned to zero address are considered invalid,
     /// and query about then do throw.
-    /// @param _tokenId 
+    /// @param _tokenId the id ok the nft we want to check.
     /// @return address owner of the token
+
     function ownerOf(uint256 _tokenId) external view returns(address) {
         address owner = _tokenOwner[_tokenId];
         require(owner != address(0), 'ERC721: ownerOf to the zero address');
