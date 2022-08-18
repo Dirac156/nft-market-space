@@ -49,4 +49,15 @@ contract ERC721 {
 
         emit Transfer(address(0), to, tokenId);
     }
+
+    /// @notice Count all NFTs assigned to an owner
+    /// @dev NFTs assigned to the zero address are considered invalid,
+    /// 
+    /// @param _owner Anaddress  
+
+    function balanceOf(address owner) public view returns(uint256) {
+        require(owner != address(0), 'ERC721: minting to the zero address');
+        return _OwnedTokensCount[owner];
+    }
+
 }
