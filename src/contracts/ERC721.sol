@@ -19,6 +19,12 @@ contract ERC721 {
         uint256 indexed tokenId
     );
 
+    event Approval (
+        address indexed owner,
+        address indexed approved,
+        uint256 indexed tokenId
+    );
+
     // mapping in solidity creates a hash table of key pair values
     // mapping from token id to the owner
     mapping(uint256 => address) private _tokenOwner;
@@ -93,7 +99,21 @@ contract ERC721 {
         emit Transfer(_from, _to, _tokenId);
     }
 
+    function approveTransfer(address _to, uint256 _tokenId) public {
+        require(msg.sender == ownerOf(_tokenId), 'ERC721: current caller is not the owner of the token');
+        require(msg.sender != _to, 'ERC721: approval to current owner');
+        _tokenApproval[_tokenId] = _to;
+        emit Approval(msg.sender, _to, _tokenId);
+    }
+
+    function isTransferApproved(address spender, uint256 tokenId) internal view returns(bool) {
+        require(_exists(tokenId), 'ERC721!: Token does not exist');
+        address owner = ownerOf(tokenId);
+        return (spender == owner);
+    }
+
     function transferFrom(address _from, address _to, uint256 _tokenId) external {
+        require(isTransferApproved(msg.sender, _tokenId), 'ERC721: Transfer is not approved');
         _transferFrom(_from, _to, _tokenId);
     }
 
