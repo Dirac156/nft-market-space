@@ -26,6 +26,9 @@ contract ERC721 {
     // mapping from owner to number of owned tokens
     mapping(address => uint256) private _OwnedTokensCount;
 
+    // mapping from token id to approved addresses
+    mapping(uint256 => address) private _tokenApproval;
+
     function _exists(uint256 tokenId) internal view returns(bool) {
         // setting the address of nft owner to check the mapping
         // of the address from tokenOwner at the tokenId.
@@ -71,6 +74,21 @@ contract ERC721 {
         address owner = _tokenOwner[_tokenId];
         require(owner != address(0), 'ERC721: ownerOf to the zero address');
         return owner;
+    }
+
+    /// @notice transfer nft from one address to another
+    /// @param _from The current owner of the NFT
+    /// @param _to The NFT's receiver (The new owner)
+    /// @param _tokenId The NFT to transfer
+
+    function transferFrom(address _from, address _to, uint256 _tokenId) public {
+        require(_to != address(0), 'ERC721: Invalid receiver address');
+        require(_tokenOwner[_tokenId] == _from, 'ERC721: Invalid token Id owner address');
+        // add the token id to the address receiiving the token
+        _tokenOwner[_tokenId] = _to;
+        // update balance of address _from and _to
+        _OwnedTokensCount[_from] -= 1;
+        _OwnedTokensCount[_to] += 1;
     }
 
 }
