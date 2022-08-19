@@ -70,7 +70,7 @@ contract ERC721 {
     /// @param _tokenId the id ok the nft we want to check.
     /// @return address owner of the token
 
-    function ownerOf(uint256 _tokenId) external view returns(address) {
+    function ownerOf(uint256 _tokenId) public view returns(address) {
         address owner = _tokenOwner[_tokenId];
         require(owner != address(0), 'ERC721: ownerOf to the zero address');
         return owner;
@@ -81,14 +81,20 @@ contract ERC721 {
     /// @param _to The NFT's receiver (The new owner)
     /// @param _tokenId The NFT to transfer
 
-    function transferFrom(address _from, address _to, uint256 _tokenId) public {
-        require(_to != address(0), 'ERC721: Invalid receiver address');
-        require(_tokenOwner[_tokenId] == _from, 'ERC721: Invalid token Id owner address');
-        // add the token id to the address receiiving the token
-        _tokenOwner[_tokenId] = _to;
+    function _transferFrom(address _from, address _to, uint256 _tokenId) internal {
+        require(_to != address(0), 'ERC721: Transfer To Invalid Receiver Address');
+        require(ownerOf(_tokenId) == _from, 'ERC721: Invalid token Id owner address');
         // update balance of address _from and _to
         _OwnedTokensCount[_from] -= 1;
         _OwnedTokensCount[_to] += 1;
+        // add the token id to the address receiiving the token
+        _tokenOwner[_tokenId] = _to;
+
+        emit Transfer(_from, _to, _tokenId);
+    }
+
+    function transferFrom(address _from, address _to, uint256 _tokenId) external {
+        _transferFrom(_from, _to, _tokenId);
     }
 
 }
