@@ -2,20 +2,9 @@
 pragma solidity ^0.8.0;
 
 import "./ERC165.sol";
+import "./interfaces/IERC721.sol";
 
-contract ERC721 is ERC165 {
-
-    event Transfer(
-        address indexed from, 
-        address indexed to, 
-        uint256 indexed tokenId
-    );
-
-    event Approval (
-        address indexed owner,
-        address indexed approved,
-        uint256 indexed tokenId
-    );
+contract ERC721 is ERC165, IERC721 {
 
     // mapping in solidity creates a hash table of key pair values
     // mapping from token id to the owner
@@ -57,7 +46,7 @@ contract ERC721 is ERC165 {
     /// @param _owner Address for whom to query the balance
     /// @return uint256 The number of NFTs owned by _owner possib;u zero. 
 
-    function balanceOf(address _owner) public view returns(uint256) {
+    function balanceOf(address _owner) public override view returns(uint256) {
         require(_owner != address(0), 'ERC721: balanceOf to the zero address');
         return _OwnedTokensCount[_owner];
     }
@@ -79,7 +68,7 @@ contract ERC721 is ERC165 {
     /// @param _to The NFT's receiver (The new owner)
     /// @param _tokenId The NFT to transfer
 
-    function _transferFrom(address _from, address _to, uint256 _tokenId) internal {
+    function _transferFrom(address _from, address _to, uint256 _tokenId) public {
         require(_to != address(0), 'ERC721: Transfer To Invalid Receiver Address');
         require(ownerOf(_tokenId) == _from, 'ERC721: Invalid token Id owner address');
         // update balance of address _from and _to
