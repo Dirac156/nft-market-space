@@ -2,8 +2,9 @@
 pragma solidity ^0.8.0;
 
 import './ERC721.sol';
+import "./interfaces/IERC721Enumerable.sol";
 
-contract ERC721Enumerable is ERC721 {
+contract ERC721Enumerable is ERC721, IERC721Enumerable {
 
     uint256[] private _allTokens;
 
@@ -34,7 +35,7 @@ contract ERC721Enumerable is ERC721 {
 
     /// @notice count NFTs tracked by thus contract
     /// @return uint256 A count of valid NFTs tracked by this contract,
-    function totalSupply() public view returns (uint256) {
+    function totalSupply() public override view returns (uint256) {
         return _allTokens.length;
     }
 
@@ -43,13 +44,13 @@ contract ERC721Enumerable is ERC721 {
     /// @param index A counter less than `totoalSupply`
     /// @return uint256 The token identifier for the `_index`th NFT,
     /// (sort order not specified)
-    function tokenByIndex(uint256 index) external view returns(uint256) {
+    function tokenByIndex(uint256 index) external override view returns(uint256) {
         // make sure thr index is not out of range
         require(index < totalSupply(), 'global index is out of bounds');
         return _allTokens[index];
     }
 
-    function tokenOfOwnerByIndex(address owner, uint256 index) external view returns(uint256){
+    function tokenOfOwnerByIndex(address owner, uint256 index) external override view returns(uint256){
         require(index < balanceOf(owner), 'owner index is out of bounds');
         return _ownedTokens[owner][index];
     }
